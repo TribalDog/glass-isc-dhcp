@@ -42,6 +42,9 @@ router.post('/', function(req, res, next) {
         )
             continue;
 
+	if (typeof dhcp_lease_data[key].mac === "undefined")
+	    continue;
+
         table_row = '';
         table_row = table_row + '<td>' + key + '</td>';
         table_row = table_row + '<td>' + dhcp_lease_data[key].mac + '</td>';

@@ -4,11 +4,11 @@
 
 module.exports = {
 	parse: function (input) {
-		var lease_data = input.split("lease");
+		var lease_data = input ? input.split("lease") : [];
 		for (i = 0; i < lease_data.length; i++) {
 			ip_address = "";
 
-			lines = lease_data[i].split("\n");
+			lines = lease_data[i] ? lease_data[i].split("\n") : [];
 			for (l = 0; l < lines.length; l++) {
 
 				/**
@@ -22,7 +22,7 @@ module.exports = {
 				 *
 				 * @type {string[]}
 				 */
-				line_data_arg = lines[l].split(" ");
+				line_data_arg = lines[l] ? lines[l].split(" ") : [];
 
 				if (/{/i.test(lines[l]) && /\./i.test(lines[l]) && !/uid/i.test(lines[l])) {
 					ip_address = line_data_arg[0].trim();
@@ -68,6 +68,8 @@ module.exports = {
 					if (/ethernet/i.test(lines[l])) {
 						if (typeof line_data_arg[2] !== "undefined") {
 							dhcp_lease_data[ip_address].mac = line_data_arg[2].replace(/;/gi, '').trim();
+							if (typeof dhcp_lease_data[ip_address].mac === "undefined")
+								continue;
 
 							if (dhcp_lease_data[ip_address].mac.split(":").join("").trim() === "")
 								continue;
@@ -90,7 +92,7 @@ module.exports = {
 					}
 					if (/set/i.test(lines[l])) {
 						set_data       = lines[l].replace(/;/gi, '').replace(/"/gi, '').replace(/ = /gi, ' ').replace(/set/gi, '').trim();
-						set_data_split = set_data.split(" ");
+						set_data_split = set_data ? set_data.split(" ") : [];
 
 						option_key   = set_data_split[0].trim();
 						option_value = set_data.replace(RegExp(option_key, "g"), '').trim();
@@ -102,7 +104,7 @@ module.exports = {
 					}
 					if (/option/i.test(lines[l])) {
 						set_data       = lines[l].replace(/;/gi, '').replace(/"/gi, '').replace(/ = /gi, ' ').replace(/option/gi, '').trim();
-						set_data_split = set_data.split(" ");
+						set_data_split = set_data ? set_data.split(" ") : [];
 
 						option_key   = set_data_split[0].trim();
 						option_value = set_data.replace(RegExp(option_key, "g"), '').trim();
