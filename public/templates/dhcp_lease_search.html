@@ -3,7 +3,7 @@
     function setValue(ipAddress) {
         var ipAddressField = document.getElementById("ipAddress");
         ipAddressField.value = 'ssh pi@' + ipAddress;
-        copyText.select();
+        ipAddressField.select();
         document.execCommand('copy');
     }
 </script>
