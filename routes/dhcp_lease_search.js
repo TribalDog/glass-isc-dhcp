@@ -42,8 +42,8 @@ router.post('/', function(req, res, next) {
         )
             continue;
 
-	if (typeof dhcp_lease_data[key].mac === "undefined")
-	    continue;
+        if (typeof dhcp_lease_data[key].mac === "undefined")
+            continue;
 
         table_row = '';
         table_row = table_row + '<td>' + key + '</td>';
@@ -53,7 +53,8 @@ router.post('/', function(req, res, next) {
         table_row = table_row + '<td>' + human_time(dhcp_lease_data[key].start * 1000) + '</td>';
         table_row = table_row + '<td>' + human_time(dhcp_lease_data[key].end * 1000) + '</td>';
         table_row = table_row + '<td>' +
-	    '<button class="btn btn-default waves-effect option_data" onclick="window.open(\'ssh:\/\/pi@' + key + '\');">Connect</button>' +
+	        // '<button class="btn btn-default waves-effect option_data" onclick="window.open(\'ssh:\/\/pi@' + key + '\');">SSH Direct</button>' +
+	        '<button class="btn btn-default waves-effect option_data" onclick="setValue(\'' + key + '\');">Copy SSH</button>' +
 
             '<button class="btn btn-default waves-effect option_data" lease="' + dhcp_lease_data[key].mac.split(":").join("") + '">Show</button>' +
             '<pre style="display:none;margin-top:10px" id="' + dhcp_lease_data[key].mac.split(":").join("") + '">' + JSON.stringify(dhcp_lease_data[key].options, null, 2) + '</pre>' +
