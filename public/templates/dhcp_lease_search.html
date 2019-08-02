@@ -1,9 +1,10 @@
 
 <script language="javascript">
     function setValue(ipAddress) {
-        console.log('>>>>' + ipAddress);
         var ipAddressField = document.getElementById("ipAddress");
-        ipAddressField.value = ipAddress;        
+        ipAddressField.value = 'ssh pi@' + ipAddress;
+        copyText.select();
+        document.execCommand('copy');
     }
 </script>
 <input type="text" value="" id="ipAddress">
