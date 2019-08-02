@@ -1,8 +1,9 @@
 
 <script language="javascript">
-    function setValue(value) {
+    function setValue(ipAddress) {
+        console.log('>>>>' + ipAddress);
         var ipAddressField = document.getElementById("ipAddress");
-        ipAddressField.value(value);        
+        ipAddressField.value = ipAddress;        
     }
 </script>
 <input type="text" value="" id="ipAddress">
